@@ -1,0 +1,75 @@
+.services {
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* Funde desde el color de fondo del sitio hacia la imagen — transición con Hero */
+.services::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, var(--color-bg), transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Funde desde la imagen de vuelta al color de fondo — transición con About */
+.services::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to top, var(--color-bg), transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center 22%;
+  z-index: 0;
+}
+
+/* Overlay con tono crema cálido extraído de la imagen */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to right,
+    rgba(232, 212, 160, 0.82) 0%,
+    rgba(232, 212, 160, 0.38) 45%,
+    rgba(232, 212, 160, 0.0) 100%
+  );
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15%;
+  padding-right: 20%;
+}
+
+@media (max-width: 640px) {
+  .services {
+    height: auto;
+    min-height: 75dvh;
+  }
+
+  .content {
+    padding: 0 var(--container-padding);
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 48px;
+  }
+}

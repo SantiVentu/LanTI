@@ -1,0 +1,158 @@
+.contact {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  background-image: radial-gradient(
+    ellipse 700px 500px at 50% 60%,
+    rgba(28, 112, 80, 0.07),
+    transparent
+  );
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--section-padding) var(--container-padding);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
+.highlight {
+  background: linear-gradient(135deg, var(--color-violet) 0%, var(--color-magenta) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtext {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  font-weight: 300;
+  margin-bottom: 52px;
+}
+
+.links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.contactLink {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  border-radius: 16px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+  color: var(--color-text);
+  transition: border-color 0.2s, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s;
+  min-width: 220px;
+  text-align: left;
+}
+
+.contactLink:hover {
+  border-color: var(--color-violet-light);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(14, 74, 56, 0.1);
+}
+
+.contactLink:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+.contactLinkPrimary {
+  background: var(--color-violet);
+  border-color: transparent;
+  color: #fff;
+}
+
+.contactLinkPrimary:hover {
+  border-color: transparent;
+  box-shadow: 0 8px 28px rgba(14, 74, 56, 0.28);
+}
+
+/* Marca tipográfica minimalista (W / @ / in) */
+.linkMark {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(14, 74, 56, 0.08);
+  letter-spacing: -0.02em;
+  color: var(--color-violet);
+}
+
+.contactLinkPrimary .linkMark {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.linkText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.linkLabel {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.linkDetail {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  opacity: 0.65;
+}
+
+.linkArrow {
+  font-size: 0.9rem;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.contactLink:hover .linkArrow {
+  opacity: 0.7;
+  transform: translateX(0);
+}
+
+@media (max-width: 640px) {
+  .links {
+    flex-direction: column;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .contactLink {
+    min-width: unset;
+    width: 100%;
+  }
+}

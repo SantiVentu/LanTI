@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ChatWidget from "@/components/Chat/ChatWidget";
 import { Syne, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -26,7 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${syne.variable} ${plusJakarta.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ChatWidget />
+      </body>
     </html>
   );
 }

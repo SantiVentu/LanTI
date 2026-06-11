@@ -27,6 +27,7 @@ export default function ChatInput({ onSend, disabled = false }: ChatInputProps) 
         value={value}
         onChange={(e) => setValue(e.target.value)}
         autoComplete="off"
+        maxLength={500}
         placeholder="Escribí tu consulta..."
         disabled={disabled}
         aria-label="Mensaje"

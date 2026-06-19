@@ -1,111 +1,14 @@
 .footer {
-  width: 100%;
-  border-top: 1px solid var(--color-border);
-}
-
-.container {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 56px var(--container-padding) 40px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 40px;
-}
-
-@media (min-width: 768px) {
-  .container {
-    grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 60px;
-  }
-}
-
-.brand {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.logo {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--color-text);
-  letter-spacing: -0.02em;
-}
-
-.dot {
-  color: var(--color-magenta);
-}
-
-.tagline {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
-  font-weight: 300;
-}
-
-.navGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.navTitle {
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-text);
-  margin-bottom: 4px;
-}
-
-.link {
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 300;
-  color: var(--color-text-muted);
-  transition: color 0.2s;
-  align-self: flex-start;
-}
-
-.link:hover {
-  color: var(--color-text);
-}
-
-/* Bottom bar */
-.bottom {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 20px var(--container-padding) 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid var(--color-border);
-}
-
-.copy {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  font-weight: 300;
-}
-
-.scrollTop {
+  min-height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+  background: var(--section-footer);
 }
 
-.scrollTop:hover {
-  color: var(--color-text);
-  border-color: var(--color-violet-light);
-  transform: translateY(-2px);
+.label {
+  font-size: 1.2rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.45);
 }

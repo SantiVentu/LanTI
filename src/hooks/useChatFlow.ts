@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useCallback } from "react";
 import type { ChatMessage, ChatStatus, ChatInput, ChatOutput } from "@/types/chat";
 

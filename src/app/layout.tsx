@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
 import ChatWidget from "@/components/Chat/ChatWidget";
-import { Syne, Plus_Jakarta_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const syne = Syne({
-  variable: "--font-syne",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+// Clash Display (variable) para títulos
+const clashDisplay = localFont({
+  src: "../fonts/ClashDisplay-Variable.woff2",
+  variable: "--font-clash",
+  weight: "200 700",
+  display: "swap",
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+// Satoshi (variable) para texto de cuerpo
+const satoshi = localFont({
+  src: "../fonts/Satoshi-Variable.woff2",
+  variable: "--font-satoshi",
+  weight: "300 900",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${syne.variable} ${plusJakarta.variable}`}>
+    <html lang="es" className={`${clashDisplay.variable} ${satoshi.variable}`}>
       <body>
         {children}
         <ChatWidget />

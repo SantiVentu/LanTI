@@ -1,9 +1,11 @@
 .contact {
-  min-height: 80vh;
+  min-height: 130vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--section-contact);
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .label {
@@ -12,3 +14,4 @@
   text-transform: uppercase;
   color: rgba(0, 0, 0, 0.4);
 }
+

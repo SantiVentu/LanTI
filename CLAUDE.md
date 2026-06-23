@@ -5,8 +5,21 @@ Agencia de software, diseño e identidad. Esta es nuestra propia landing.
 ## Stack
 - Next.js (App Router)
 - TypeScript
-- CSS Modules (NO usar Tailwind, NO estilos inline)
-- Framer Motion para animaciones
+- CSS Modules como sistema de estilo por defecto. NO estilos inline.
+- Tailwind v4 está instalado y permitido **solo** para componentes y animaciones traídos de 21st (Magic MCP). Todo lo demás se escribe en CSS Modules. La marca está mapeada en `globals.css` vía `@theme` (utilidades `bg-ink`, `text-paper`, `text-accent`).
+
+### Animación y 3D
+- **Framer Motion** — animaciones de UI: entrada/salida de componentes, gestos, layout, transiciones simples.
+- **GSAP + ScrollTrigger** — animaciones complejas ligadas al scroll: timelines, pinning, scrub, secuencias.
+- **Lenis** — smooth scroll. Se integra con ScrollTrigger (sincronizar el `raf` de Lenis con `ScrollTrigger.update`).
+- **Three.js + React Three Fiber (`@react-three/fiber`) + Drei (`@react-three/drei`)** — 3D: partículas, objetos que rotan, profundidad real.
+
+Reglas de uso:
+- Todo lo que use GSAP, Lenis, R3F o Three corre en cliente → componente con `"use client"`.
+- Aislar el 3D y las animaciones de scroll en sus propios componentes/hooks; no mezclar lógica 3D dentro de componentes de presentación.
+- Limpiar SIEMPRE en el cleanup del efecto: `ScrollTrigger.kill()`, `gsap.context().revert()`, destruir la instancia de Lenis y disponer geometrías/materiales de Three.
+- Cargar el canvas 3D de forma diferida (`next/dynamic` con `ssr: false`) para no romper el render del servidor ni bloquear el LCP.
+- Las animaciones corren SIEMPRE, sin importar `prefers-reduced-motion` (decisión del cliente: el movimiento es parte de la identidad de la marca). No agregar guards de reduce-motion.
 
 ## Convenciones de código
 - Código en inglés: nombres de variables, funciones y componentes.
@@ -21,12 +34,6 @@ Agencia de software, diseño e identidad. Esta es nuestra propia landing.
 - Páginas en src/app/
 - Assets (imágenes, íconos) en public/
 
-## Estilo visual
-- Idioma del sitio: español (lang="es")
-- Estética: moderna, artística, jugada. Referencia: ohhmyads.com
-- Tipografía: [PENDIENTE — la define la diseñadora]
-- Paleta de colores: [PENDIENTE — la define la diseñadora]
-- Mobile first: cada componente debe verse bien en mobile, tablet y desktop.
 
 ## Cómo trabajar conmigo
 - Antes de crear o editar código, explicame qué vas a hacer y por qué. Esperá mi confirmación antes de tocar archivos.

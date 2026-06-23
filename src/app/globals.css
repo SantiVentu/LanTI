@@ -1,3 +1,13 @@
+/* Tailwind v4 — habilitado solo para componentes/animaciones de 21st */
+@import "tailwindcss";
+
+/* Marca LanTI mapeada a utilidades Tailwind (bg-ink, text-paper, text-accent...) */
+@theme {
+  --color-ink: #0e1311;
+  --color-paper: #eef1ec;
+  --color-accent: #c8ff4d;
+}
+
 :root {
   /* Color de fondo por sección — para distinguirlas en la página */
   --section-nav: #d8e0d9;
@@ -16,4 +26,22 @@
 
 body {
   font-family: system-ui, sans-serif;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }

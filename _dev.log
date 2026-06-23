@@ -1,0 +1,43 @@
+
+> lanti-web@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.188:3000
+- Environments: .env.local
+✓ Ready in 758ms
+
+ GET / 200 in 822ms (next.js: 577ms, application-code: 244ms)
+ GET / 200 in 45ms (next.js: 6ms, application-code: 39ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 64ms (next.js: 7ms, application-code: 57ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+✓ Compiled in 167ms
+ GET / 200 in 73ms (next.js: 8ms, application-code: 65ms)
+ GET / 200 in 240ms (next.js: 20ms, application-code: 220ms)
+ GET / 200 in 74ms (next.js: 38ms, application-code: 36ms)
+ GET / 200 in 416ms (next.js: 103ms, application-code: 313ms)
+ GET / 200 in 248ms (next.js: 69ms, application-code: 179ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET /test 200 in 93ms (next.js: 46ms, application-code: 47ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+✓ Compiled in 149ms
+✓ Compiled in 66ms
+✓ Compiled in 67ms
+✓ Compiled in 58ms
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+ GET / 200 in 205ms (next.js: 71ms, application-code: 134ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 80ms (next.js: 7ms, application-code: 73ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[?25h

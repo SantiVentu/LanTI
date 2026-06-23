@@ -1,0 +1,48 @@
+/* Capa de píldoras sobre toda la sección, detrás del contenido */
+.root {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Píldoras tipo cristal */
+.pill {
+  position: absolute;
+  width: clamp(80px, 11vw, 140px);
+  height: clamp(30px, 3.6vw, 42px);
+  border-radius: 999px;
+  overflow: hidden;
+  /* Vidrio: degradé translúcido + brillo interior */
+  background: linear-gradient(135deg, rgba(254, 250, 224, 0.22), rgba(254, 250, 224, 0.04));
+  border: 1px solid rgba(254, 250, 224, 0.35);
+  backdrop-filter: blur(6px) saturate(125%);
+  -webkit-backdrop-filter: blur(6px) saturate(125%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.45),
+    inset 0 -2px 6px rgba(20, 20, 40, 0.12),
+    0 6px 18px rgba(20, 20, 40, 0.18);
+  will-change: transform;
+}
+
+/* Reflejo diagonal tipo cristal */
+.pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 28%,
+    rgba(255, 255, 255, 0.5) 47%,
+    rgba(255, 255, 255, 0.12) 54%,
+    transparent 64%
+  );
+}
+
+/* Posiciones de arranque: lo más arriba posible, repartidas a lo ancho */
+.pill1 { top: 1%; left: 7%; }
+.pill2 { top: 4%; left: 23%; }
+.pill3 { top: 2%; left: 39%; }
+.pill4 { top: 5%; left: 55%; }
+.pill5 { top: 2%; left: 71%; }
+.pill6 { top: 4%; left: 85%; }

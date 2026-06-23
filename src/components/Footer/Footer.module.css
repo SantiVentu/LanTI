@@ -1,14 +1,11 @@
+
+
 .footer {
-  min-height: 240px;
+  min-height: 120vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--section-footer);
-}
-
-.label {
-  font-size: 1.2rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.45);
+  background-size: cover;            /* llena la caja sin deformar */
+  background-position: center bottom; /* ancla abajo: sol y nubes enteros, recorta solo el cielo de arriba */
+  background-repeat: no-repeat;
 }

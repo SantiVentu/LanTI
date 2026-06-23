@@ -1,14 +1,136 @@
 .hero {
+  /* Paleta de marca sobre fondo oscuro */
+  --hero-bg: #2d2b54;
+  --hero-text: #fefae0;
+  --hero-accent: #e95825;
+
+  position: relative;
   min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: clamp(7rem, 18vh, 11rem) clamp(4rem, 12vh, 8rem);
+  padding-inline: clamp(1.5rem, 6vw, 6rem);
+  background: var(--hero-bg);
+}
+
+/* Fondo: MeshGradient ocupa toda la sección, detrás del contenido */
+.bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Fade inferior hacia el indigo: empalma con el top de About */
+.fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 35%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, var(--hero-bg) 100%);
+}
+
+/* --- Intro arriba a la izquierda --- */
+.intro {
+  position: relative;
+  z-index: 5;
+  align-self: flex-start;
+  max-width: 34ch;
+}
+
+.introText {
+  font-family: var(--font-satoshi), sans-serif;
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--hero-text) 82%, transparent);
+}
+
+.introText strong {
+  font-weight: 700;
+  font-style: italic;
+  color: var(--hero-text);
+}
+
+/* --- Título abajo a la derecha --- */
+.content {
+  position: relative;
+  z-index: 5;
+  align-self: flex-end;
+  margin-bottom: clamp(2rem, 6vh, 4.5rem);
+  text-align: right;
+}
+
+.mask {
+  display: block;
+  overflow: hidden;
+}
+
+.maskInner {
+  display: block;
+  will-change: transform;
+}
+
+.title {
+  font-family: var(--font-clash), sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.2rem, 5.6vw, 4.9rem);
+  line-height: 1.02;
+  color: var(--hero-text);
+}
+
+/* Cada renglón se mantiene en una sola línea */
+.line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* Acentos de color del título */
+.accentViolet {
+  color: #9986b6;
+}
+
+.accentOrange {
+  color: var(--hero-accent);
+}
+
+/* --- Pantalla de carga --- */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 60; /* por encima del nav (z-index 50) durante la intro */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--section-hero);
+  background: #000;
+  will-change: opacity, filter;
 }
 
-.label {
-  font-size: 2rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.4);
+.logo {
+  position: relative;
+  font-family: var(--font-clash), sans-serif;
+  font-weight: 600;
+  font-size: clamp(3rem, 12vw, 8rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* Estado "vacío": contorno tenue */
+.logoBase {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(254, 250, 224, 0.28);
+}
+
+/* Relleno de color de la paleta, recortado por el progreso (izq → der) */
+.logoFill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #7c6aad 0%, #9986b6 35%, #e7ca7a 70%, #e95825 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  will-change: clip-path;
 }

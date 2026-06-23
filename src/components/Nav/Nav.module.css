@@ -1,14 +1,88 @@
 .nav {
-  min-height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--section-nav);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  pointer-events: none; /* solo los botones reciben eventos */
 }
 
-.label {
-  font-size: 0.95rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.45);
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(0.75rem, 2vh, 1.25rem) clamp(1.5rem, 6vw, 6rem);
+}
+
+/* --- Marca --- */
+.brand {
+  pointer-events: auto;
+  font-family: var(--font-clash), sans-serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+  color: #fefae0;
+  text-decoration: none;
+  text-shadow: 0 1px 12px rgba(20, 20, 40, 0.35);
+}
+
+/* --- Botones glaseados --- */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.35rem;
+  border-radius: 999px;
+  /* Vidrio esmerilado translúcido (tinte neutro: legible sobre claro u oscuro) */
+  background: rgba(30, 28, 56, 0.22);
+  border: 1px solid rgba(254, 250, 224, 0.22);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 8px 30px rgba(20, 20, 40, 0.18);
+}
+
+.link {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  font-family: var(--font-satoshi), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fefae0;
+  text-decoration: none;
+  text-shadow: 0 1px 10px rgba(20, 20, 40, 0.35);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.link:hover {
+  background: rgba(254, 250, 224, 0.16);
+}
+
+/* CTA destacado: vidrio más sólido */
+.cta {
+  background: rgba(254, 250, 224, 0.9);
+  color: #2d2b54;
+  font-weight: 600;
+}
+
+.cta:hover {
+  background: #fefae0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .links {
+    gap: 0.25rem;
+    padding: 0.3rem;
+  }
+
+  .link {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
 }

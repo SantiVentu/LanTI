@@ -55,13 +55,14 @@ export function useCardsFanReveal(
         autoAlpha: 0,
         x: (_index: number, target: HTMLElement) => stackOffset(target),
         y: 0,
-        yPercent: 170,
+        yPercent: 120,
         rotation: 0,
         transformOrigin: "50% 100%", // pivote abajo: el giro se lee como abanico
       });
 
       // El pin va en su propio trigger, sin animación: se clava cuando la sección llega
-      // arriba y dura 70vh.
+      // arriba y dura 70vh. El título ya entró antes del pin, así que acá solo terminan de
+      // abrirse las cards.
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
@@ -69,15 +70,15 @@ export function useCardsFanReveal(
         pin: true,
       });
 
-      // El abanico arranca 50vh ANTES del pin para que las cards ya estén subiendo cuando
-      // la sección entra, sin pantalla vacía. Se crea después del pin para que ScrollTrigger
-      // no le sume la distancia pineada, y el end en distancia cruda (50 + 70) lo hace
-      // terminar justo con el pin. Subir y abrirse son el MISMO movimiento.
+      // El abanico arranca justo cuando About2 termina de despejar y el título ya cruzó, y
+      // se extiende hasta el final del pin: 100vh de aproximación + 70 de pin. Se crea
+      // después del pin para que ScrollTrigger no le sume la distancia pineada, así el end
+      // en distancia cruda es literal. Subir y abrirse son el MISMO movimiento.
       const reveal = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: "top 50%",
-          end: "+=120%",
+          start: "top bottom",
+          end: "+=170%",
           scrub: true,
           invalidateOnRefresh: true,
         },
@@ -101,7 +102,7 @@ export function useCardsFanReveal(
           {
             x: (_index: number, target: HTMLElement) => stackOffset(target),
             y: 0,
-            yPercent: 170,
+            yPercent: 120,
             rotation: 0,
           },
           {
@@ -111,7 +112,6 @@ export function useCardsFanReveal(
             rotation: (index: number) => pose(index).rotation,
             duration: 1,
             ease: "power1.out",
-            stagger: { each: 0.06, from: "center" },
           },
           0
         );

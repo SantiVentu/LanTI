@@ -41,19 +41,20 @@ built for learning, experimenting, and laying the groundwork for something bigge
 | | |
 |---|---|
 | **CSS Modules** | Default styling system — one `.module.css` per component |
-| **[Tailwind CSS](http| Scoped to componentssourced from 21st (Magic MCP); brand tokens mapped via `@theme` |
+| **[Tailwind CSS](https://tailwindcss.com)** `4.3` | Scoped to components sourced from 21st (Magic MCP); brand tokens mapped via `@theme` |
 | **[PostCSS](https://postcss.org)** `8.5` | CSS build pipeline |
 
 ### Motion
 | | |
 |---|---|
-| **[GSAP](https://gsap.com)** `3.15` | Scroll-driven timelines, pinning,
-scrub sequences (Scroll
+| **[GSAP](https://gsap.com)** `3.15` | Scroll-driven timelines, pinning, scrub sequences (ScrollTrigger) |
 | **[Framer Motion](https://motion.dev)** `12.40` | Component enter/exit, gestures, layout transitions |
-| **[Lenis](https://len.3` | Smooth scroll,synced with ScrollTrigger's update loop |
-                                                                           ### 3D
+| **[Lenis](https://lenis.darkroom.engineering)** `1.3` | Smooth scroll, synced with ScrollTrigger's update loop |
+
+### 3D
 | | |
-|---|---|                                                                  | **[Three.js](https://L engine — particles,depth, rotating geometry |
+|---|---|
+| **[Three.js](https://threejs.org)** `0.184` | WebGL engine — particles, depth, rotating geometry |
 | **[React Three Fiber](https://r3f.docs.pmnd.rs)** `9.6` | React renderer for Three.js |
 | **[Drei](https://drei.docs.pmnd.rs)** `10.7` | Helpers and abstractions for R3F |
 
@@ -61,5 +62,5 @@ scrub sequences (Scroll
 | | |
 |---|---|
 | **[Playwright](https://playwright.dev)** `1.60` | Browser automation and visual checks |
-| **[ESLint](https://es `eslint-config-next` |
+| **[ESLint](https://eslint.org)** `9` | Linting via `eslint-config-next` |
 | **[Groq SDK](https://groq.com)** `1.2` | LLM client |

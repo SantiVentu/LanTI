@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lanti
 
-## Getting Started
+**Lanti** is a personal, experimental project born out of a hobby — the early foundation 
+of a digital studio brand, built hand-in-hand with [Claude Code](https://claude.com/claude-code).
 
-First, run the development server:
+This is a solo, individual project developed in collaboration with a graphic designer, 
+combining design and AI-assisted development to explore what Lanti could become. 
+It's currently in an experimental stage, with the long-term goal of growing into a 
+fully realized, professional digital studio.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## About
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 🎨 **Design-driven**: shaped alongside a graphic designer, with visual identity at its core
+- 🤖 **Built with AI**: developed using Claude Code as a hands-on coding partner
+- 🌱 **Experimental**: still evolving — ideas, structure, and direction may change as the project grows
+- 🎯 **Long-term goal**: turn Lanti into an established digital studio brand
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Status
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project is a hobby / side project in active exploration. Not production-ready yet — 
+built for learning, experimenting, and laying the groundwork for something bigger.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+*A solo project, created and maintained independently.*
+*Best regards.*
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Core
+| | |
+|---|---|
+| **[Next.js](https://nextjs.org)** `16.2` | App Router, React Server Components, image & font optimization |
+| **[React](https://react.dev)** `19.2` | UI layer — functional components and hooks only |
+| **[TypeScript](https://www.typescriptlang.org)** `5` | Strict typing across the codebase — no `any` |
+
+### Styling
+| | |
+|---|---|
+| **CSS Modules** | Default styling system — one `.module.css` per component |
+| **[Tailwind CSS](http| Scoped to componentssourced from 21st (Magic MCP); brand tokens mapped via `@theme` |
+| **[PostCSS](https://postcss.org)** `8.5` | CSS build pipeline |
+
+### Motion
+| | |
+|---|---|
+| **[GSAP](https://gsap.com)** `3.15` | Scroll-driven timelines, pinning,
+scrub sequences (Scroll
+| **[Framer Motion](https://motion.dev)** `12.40` | Component enter/exit, gestures, layout transitions |
+| **[Lenis](https://len.3` | Smooth scroll,synced with ScrollTrigger's update loop |
+                                                                           ### 3D
+| | |
+|---|---|                                                                  | **[Three.js](https://L engine — particles,depth, rotating geometry |
+| **[React Three Fiber](https://r3f.docs.pmnd.rs)** `9.6` | React renderer for Three.js |
+| **[Drei](https://drei.docs.pmnd.rs)** `10.7` | Helpers and abstractions for R3F |
+
+### Tooling
+| | |
+|---|---|
+| **[Playwright](https://playwright.dev)** `1.60` | Browser automation and visual checks |
+| **[ESLint](https://es `eslint-config-next` |
+| **[Groq SDK](https://groq.com)** `1.2` | LLM client |

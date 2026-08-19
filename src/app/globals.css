@@ -1,14 +1,14 @@
 /* Tailwind v4 — habilitado solo para componentes/animaciones de 21st */
 @import "tailwindcss";
 
-/* Marca LanTI mapeada a utilidades Tailwind (bg-ink, text-paper, text-accent...) */
-@theme {
-  --color-ink: #0e1311;
-  --color-paper: #eef1ec;
-  --color-accent: #c8ff4d;
-}
 
 :root {
+  /* Solape de About2 sobre la zona ya disuelta del Hero: el saludo nace antes */
+  --about-overlap: 75vh;
+
+  /* Pastel unificado y opaco: fondo compartido de Hero2 y About2 (mismo color en ambos) */
+  --sky-pastel: #ebc284;
+
   /* Color de fondo por sección — para distinguirlas en la página */
   --section-nav: #d8e0d9;
   --section-hero: #eef1ec;
@@ -26,6 +26,8 @@
 
 body {
   font-family: system-ui, sans-serif;
+  /* Pastel compartido: siempre detrás de las zonas transparentes (solape sin corte) */
+  background: var(--sky-pastel);
 }
 
 /* Lenis smooth scroll */

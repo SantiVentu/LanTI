@@ -1,86 +1,36 @@
 .services {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
+  display: grid;
+  place-items: center;
   /* Cielo crema pastel */
-  background: #fefae0;
+  background: var(--sky-pastel);
 }
 
-/* Fade superior desde el dorado de About hacia el cielo crema */
-.topFade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 32%;
-  z-index: 5;
-  pointer-events: none;
-  background: linear-gradient(to bottom, #e7ca7a 0%, transparent 100%);
+/* Columna centrada: título arriba y la grilla de cards debajo */
+.content {
+  position: relative;
+  z-index: 2; /* sobre las capas de la escena */
+  width: min(100%, 1240px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2.5rem, 7vh, 4.5rem);
+  padding-block: clamp(4rem, 10vh, 7rem);
+  padding-inline: clamp(1.5rem, 6vw, 6rem);
 }
 
-/* --- Escena en capas --- */
-.layers {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  will-change: transform;
+/* Título de sección: Clash pesada en versalitas, mismo tinte que About2 */
+.title {
+  font-family: var(--font-clash), sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: clamp(1.8rem, 5vw, 3.6rem);
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  text-align: center;
+  color: #2d2b54;
 }
 
-.layer {
-  position: absolute;
-  pointer-events: none;
-  will-change: transform;
-}
 
-.layerImg {
-  object-fit: contain;
-}
-
-.nubesBack {
-  left: -5%;
-  bottom: 0;
-  width: 110%;
-  height: 100%;
-  z-index: 1;
-  opacity: 0.75;
-  transform: scaleX(-1);
-}
-
-/* Sol grande, arriba-izquierda, apoyado sobre las nubes */
-.sol {
-  top: -28%;
-  left: -13%;
-  width: 90%;
-  height: 120%;
-  z-index: 2;
-}
-
-/* Astronauta — ajustá estas 4 perillas a gusto */
-.astronaut {
-  right: -18%;
-  bottom: 30%;
-  width: 110%;
-  height: 60%;
-  z-index: 3;
-}
-
-.nubesFront {
-  left: -8%;
-  bottom: -20%;
-  width: 110%;
-  height: 90%;
-  z-index: 4;
-  transform: translateY(10%);
-}
-
-.nubesBack .layerImg,
-.nubesFront .layerImg {
-  object-fit: cover;
-}
-
-/* Pantallas chicas: la escena no debe tapar futuros contenidos */
-@media (max-width: 640px) {
-  .astronaut {
-    opacity: 0.55;
-  }
-}

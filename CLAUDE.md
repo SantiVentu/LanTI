@@ -73,3 +73,25 @@ Reglas de uso:
 - ¿Está tipado sin "any"?
 - ¿Se ve bien en mobile, tablet y desktop?
 - ¿Los nombres explican la intención?
+
+
+//notas interesantes
+
+efecto de seguimiento para mouse y lograr efectos
+useMousePositionRef
+const positionRef = useMousePositionRef(containerRef)
+
+// Access current position
+const { x, y } = positionRef.current
+
+Features:
+Reference-based updates
+No re-renders
+Container-relative
+Touch support
+
+Use Cases:
+Interactive animations
+Cursor effects
+Dynamic gradients
+Mouse tracking

@@ -1,0 +1,328 @@
+.hero2 {
+  /* Texto y acento de marca sobre el cielo crema (indigo legible sobre claro) */
+  --hero-text: #2d2b54;
+  --hero-accent: #e95825;
+
+  position: relative;
+  /* Más alto que la ventana: al bajar se ve la parte inferior de las nubes antes de About2 */
+  min-height: 150vh;
+  overflow: hidden;
+  /* Cielo pastel amarillito unificado */
+  background: var(--sky-pastel);
+}
+
+/* Texto acotado a la primera pantalla; las nubes se extienden por debajo */
+.stage {
+  position: relative;
+  z-index: 5;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: clamp(5rem, 11vh, 7.5rem) clamp(4rem, 12vh, 8rem);
+  padding-inline: clamp(1.5rem, 6vw, 6rem);
+}
+
+/* Fade superior: refuerza el pastel sólido arriba y funde hacia el cielo (mismo color) */
+.topFade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 32vh;
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--sky-pastel) 0%, transparent 100%);
+}
+
+/* Degradado de base: el color sólido sube y funde las nubes más bajas, sin corte */
+.bottomBlend {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45vh;
+  z-index: 5; /* sobre las nubes; en la zona baja, no toca el texto de la primera pantalla */
+  pointer-events: none;
+  background: linear-gradient(to top, var(--sky-pastel) 0%, var(--sky-pastel) 22%, transparent 100%);
+}
+
+/* --- Escena en capas --- */
+/* Alto de una ventana y anclada arriba: mantiene la composición inicial y deja que las
+   bandas de nube (ancladas al fondo de esta caja) se derramen hacia abajo en la sección. */
+.layers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: 1;
+  will-change: transform;
+}
+
+.layer {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.layerImg {
+  object-fit: contain;
+}
+
+/* Pista del marquee: 4 tiles (normal/espejo alternados); al desplazarse -50% el bucle es sin costura */
+.cloudTrack {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  width: 400%;
+  height: 100%;
+  will-change: transform;
+}
+
+.cloudTile {
+  position: relative;
+  flex: 0 0 25%;
+  height: 100%;
+}
+
+/* Tile espejado: su borde coincide con el del vecino y disimula la unión */
+.flip {
+  transform: scaleX(-1);
+}
+
+/* Nubecita que se monta sobre cada unión; su máscara lateral la funde con el resto */
+.cloudSeam {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 12%;
+  transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 35%, #000 65%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 35%, #000 65%, transparent 100%);
+}
+
+/* Posiciones sobre las uniones internas del track (25% / 50% / 75%) */
+.seamA {
+  left: 25%;
+}
+
+.seamB {
+  left: 50%;
+}
+
+.seamC {
+  left: 75%;
+}
+
+.nubesBack {
+  left: -5%;
+  bottom: -16%;
+  width: 110%;
+  height: 100%;
+  z-index: 1;
+  opacity: 1;
+}
+
+/* Banda intermedia: entre el sol y el astronauta */
+.nubesMid {
+  left: -6%;
+  bottom: -26%;
+  width: 110%;
+  height: 95%;
+  z-index: 2;
+  opacity: 0.92;
+}
+
+.nubesFront {
+  left: -8%;
+  bottom: -33%;
+  width: 110%;
+  height: 90%;
+  z-index: 4;
+}
+
+/* Banda intermedia espejada: voltea la imagen sin alterar el sentido del movimiento */
+.nubesMid .layerImg {
+  transform: scaleX(-1);
+}
+
+/* Bandas bajas: caen en el espacio nuevo de la sección más alta */
+.nubesLowA {
+  left: -7%;
+  bottom: -26%;
+  width: 80%;
+  height: 60%;
+  z-index: 4;
+
+}
+
+.nubesLowB {
+  left: -9%;
+  bottom: -61%;
+  width: 80%;
+  height: 80%;
+  z-index: 4;
+}
+
+/* Banda baja A espejada respecto a nubesFront; B queda normal (espejo de A) */
+.nubesLowB .layerImg {
+  transform: scaleX(-1);
+}
+
+/* Sol en la capa base, detrás de todas las nubes */
+.sol {
+  top: 45%;
+  left: 72%;
+  width: 100%;
+  height: 130%;
+  /* scale() es la perilla de tamaño: subilo para agrandar, bajalo para achicar */
+  transform: translate(-50%, -50%) scale(1.35);
+  z-index: 0;
+}
+
+/* Astronauta — ajustá estas 4 perillas a gusto */
+.astronaut {
+  right: -24%;
+  bottom: 20%;
+  width: 110%;
+  height: 60%;
+  z-index: 3;
+  /* Flotar suave de arriba abajo, en loop */
+  animation: astronautFloat 5.5s ease-in-out infinite alternate;
+}
+
+/* Va y vén vertical sutil pero notable */
+@keyframes astronautFloat {
+  from {
+    transform: translateY(-16px);
+  }
+  to {
+    transform: translateY(16px);
+  }
+}
+
+
+
+.nubesBack .layerImg,
+.nubesMid .layerImg,
+.nubesFront .layerImg,
+.nubesLowA .layerImg,
+.nubesLowB .layerImg {
+  object-fit: cover;
+}
+
+/* Pantallas chicas: la escena no debe tapar futuros contenidos */
+@media (max-width: 640px) {
+  .astronaut {
+    opacity: 0.55;
+  }
+}
+
+
+.intro {
+  position: relative;
+  z-index: 5;
+  align-self: flex-start;
+  max-width: 34ch;
+}
+
+.introText {
+  font-family: var(--font-satoshi), sans-serif;
+  font-size: clamp(0.72rem, 1vw, 0.9rem);
+  line-height: 1.55;
+  /* Blanco crema como la marca del nav; sombra sutil para leerse sobre el pastel */
+  color: #fefae0;
+  text-shadow: 0 1px 12px rgba(20, 20, 40, 0.35);
+}
+
+.introText strong {
+  font-weight: 700;
+  font-style: italic;
+  color: #fefae0;
+}
+
+/* --- Título abajo a la derecha --- */
+.content {
+  position: relative;
+  z-index: 5;
+  align-self: flex-start;
+  margin-bottom: clamp(2rem, 6vh, 4.5rem);
+  text-align: left;
+}
+
+.mask {
+  display: block;
+  overflow: hidden;
+}
+
+.maskInner {
+  display: block;
+  will-change: transform;
+}
+
+.title {
+  font-family: var(--font-clash), sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.2rem, 5.6vw, 4.9rem);
+  line-height: 1.02;
+  color: var(--hero-text);
+}
+
+/* Cada renglón se mantiene en una sola línea */
+.line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* Acentos de color del título */
+.accentViolet {
+  color: #9986b6;
+}
+
+.accentOrange {
+  color: var(--hero-accent);
+}
+
+/* --- Pantalla de carga --- */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 60; /* por encima del nav (z-index 50) durante la intro */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  will-change: opacity, filter;
+}
+
+.logo {
+  position: relative;
+  font-family: var(--font-clash), sans-serif;
+  font-weight: 700;
+  font-size: clamp(5rem, 24vw, 16rem);
+  line-height: 0.85;
+  /* Tracking apenas cerrado: si es más negativo, las letras se solapan y el contorno
+     muestra líneas cruzadas en el solape */
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  /* Aire a la derecha: el tracking negativo saca la última letra de la caja y el
+     relleno (background-clip: text) no la pinta; este padding la vuelve a cubrir */
+  padding-right: 0.12em;
+}
+
+/* Estado "vacío": relleno sólido tenue (sin contorno, para no ver los trazos internos) */
+.logoBase {
+  color: rgba(254, 250, 224, 0.16);
+}
+
+/* Relleno de color de la paleta, recortado por el progreso (izq → der) */
+.logoFill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #7c6aadbe 0%, #9986b6 35%, #e7ca7a 70%, #e95825 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  will-change: clip-path;
+}

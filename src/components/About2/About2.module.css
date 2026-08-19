@@ -1,0 +1,103 @@
+.about2 {
+  position: relative;
+  z-index: 6; /* sobre las capas del Hero (z<=5) en la zona de solape */
+  min-height: 100vh;
+  /* Recorta el barrido lateral en el borde de la sección (= borde de pantalla), no sobre
+     la palabra: así no se ve ningún corte feo de dónde salen los renglones */
+  overflow-x: clip;
+}
+
+/* Fondo pastel sólido desde el borde superior: sin desvanecido arriba. Detrás siempre hay
+   pastel (Hero o body), así el contenido nunca queda sobre un fondo ajeno. */
+.about2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--sky-pastel);
+}
+
+/* Columna centrada: el bloque queda a media altura, sin aire muerto abajo */
+.content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: clamp(4rem, 12vh, 7.5rem) clamp(4rem, 10vh, 7rem);
+  padding-inline: clamp(1.5rem, 6vw, 6rem);
+  text-align: center;
+  gap: clamp(1.6rem, 5vh, 3rem);
+}
+
+/* Kicker: entrada en versalitas espaciadas, contrasta con la Clash pesada */
+.kicker {
+  font-family: var(--font-satoshi), sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: clamp(0.72rem, 1vw, 0.95rem);
+  color: color-mix(in srgb, #2d2b54 65%, transparent);
+}
+
+/* Statement: dos renglones apilados y centrados */
+.statement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-clash), sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.7rem, 6.5vw, 5rem);
+  line-height: 1.05;
+  color: #2d2b54;
+}
+
+/* Contenedor por renglón: cada línea en su propio bloque (sin recorte propio) */
+.mask {
+  display: block;
+}
+
+.maskInner {
+  display: block;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+/* Renglones diferenciados para el barrido lateral (izquierda / derecha) */
+.lineLeft,
+.lineRight {
+  will-change: transform;
+}
+
+/* Palabra clave en el naranja de marca y en mayúsculas para el remate */
+.accent {
+  color: #e95825;
+  text-transform: uppercase;
+}
+
+.accent2 {
+  color: #7C6AAD;
+  text-transform: uppercase;
+}
+
+/* Bloque que sube desde abajo (sin recorte: se desliza entero hacia su lugar) */
+.reveal {
+  display: block;
+}
+
+.revealInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.2rem, 3vh, 2rem);
+  will-change: transform;
+}
+
+/* Párrafo de apoyo: fija la postura, cuerpo legible sobre el pastel */
+.lead {
+  font-family: var(--font-satoshi), sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.55;
+  max-width: 46ch;
+  color: color-mix(in srgb, #2d2b54 85%, transparent);
+}

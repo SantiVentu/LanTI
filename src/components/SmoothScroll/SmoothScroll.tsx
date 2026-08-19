@@ -14,7 +14,8 @@ interface SmoothScrollProps {
 // Smooth scroll global sincronizado con ScrollTrigger
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
-    const lenis = new Lenis({ duration: 1.2, smoothWheel: true });
+    // duration = cuánto dura la cola residual al soltar la rueda; wheelMultiplier = impulso inicial
+    const lenis = new Lenis({ duration: 1.8, wheelMultiplier: 1.5, smoothWheel: true });
 
     // Cada scroll de Lenis refresca las posiciones de ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);

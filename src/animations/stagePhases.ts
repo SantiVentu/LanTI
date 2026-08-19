@@ -15,5 +15,5 @@ export const PHASE = {
   handoff: 1, // About2 empieza a retirarse por los costados
   title: 1.6, // los renglones ya se abrieron: entra el título de Services
   cards: 2.1, // abanico de cards + vire de color
-  end: 3.1,
+  end: 2.8, // el sobrante sobre "cards" es lo que dura el abanico: 0.7 = 70vh de rueda
 } as const;

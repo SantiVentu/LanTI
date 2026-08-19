@@ -5,6 +5,12 @@ import { PHASE } from "./stagePhases";
 // Tramo de About2 dentro del stage: los renglones entran por los costados, sube el bloque de
 // apoyo y después todo se retira por donde vino. La salida ocupa la franja handoff → title:
 // termina exactamente cuando el título de Services empieza a entrar.
+// Cuánto se retrasan los renglones respecto del arranque del timeline. No se estira la fase:
+// siguen quedando puestos justo cuando engancha el pin, solo barren un poco más rápido.
+const LINES_DELAY = 0.1;
+// El renglón derecho sale apenas después que el izquierdo
+const LINE_STAGGER = 0.08;
+
 export function addAbout2Phase(tl: gsap.core.Timeline, root: HTMLElement) {
   const sel = gsap.utils.selector(root);
   const kicker = sel(`.${styles.kicker}`);
@@ -12,7 +18,8 @@ export function addAbout2Phase(tl: gsap.core.Timeline, root: HTMLElement) {
   const lineRight = sel(`.${styles.lineRight}`);
   const revealInner = sel(`.${styles.revealInner}`);
 
-  const linesDuration = PHASE.blockUp - PHASE.linesIn;
+  const linesStart = PHASE.linesIn + LINES_DELAY;
+  const linesDuration = PHASE.blockUp - linesStart;
   const blockDuration = PHASE.handoff - PHASE.blockUp;
   // La salida cierra justo donde entra el título de Services: uno releva al otro
   const exitDuration = PHASE.title - PHASE.handoff;
@@ -27,18 +34,18 @@ export function addAbout2Phase(tl: gsap.core.Timeline, root: HTMLElement) {
 
   tl
     // Entrada: el renglón izquierdo aparece nítido (opacidad rápida) y se desliza
-    .to(lineLeft, { autoAlpha: 1, duration: 0.1 }, PHASE.linesIn)
+    .to(lineLeft, { autoAlpha: 1, duration: 0.1 }, linesStart)
     .to(
       lineLeft,
       { xPercent: 0, duration: linesDuration, ease: "power2.out" },
-      PHASE.linesIn
+      linesStart
     )
     // El derecho, casi a la par
-    .to(lineRight, { autoAlpha: 1, duration: 0.1 }, PHASE.linesIn + 0.08)
+    .to(lineRight, { autoAlpha: 1, duration: 0.1 }, linesStart + LINE_STAGGER)
     .to(
       lineRight,
       { xPercent: 0, duration: linesDuration, ease: "power2.out" },
-      PHASE.linesIn + 0.08
+      linesStart + LINE_STAGGER
     )
     // Bloque de apoyo: aparece y sube desde abajo
     .to(revealInner, { autoAlpha: 1, duration: 0.15 }, PHASE.blockUp)

@@ -1,7 +1,5 @@
 import Nav from "@/components/Nav/Nav";
-import Hero from "@/components/Hero/Hero";
-import Services from "@/components/Services/Services";
-import About2 from "@/components/About2/About2";
+import Stage from "@/components/Stage/Stage";
 import Contact from "@/components/Contact/Contact";
 import Footer from "@/components/Footer/Footer";
 import Hero2 from "@/components/Hero2/Hero2";
@@ -11,8 +9,8 @@ export default function Home() {
     <>
       <Nav />
       <Hero2 />
-      <About2 />
-      <Services />
+      {/* About2 y Services viven acá dentro: una misma escena, no dos secciones apiladas */}
+      <Stage />
       <Contact />
       <Footer />
     </>

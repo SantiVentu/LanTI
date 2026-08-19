@@ -1,0 +1,43 @@
+/* Contenedor del recorrido. No lleva alto propio: el pin-spacer de ScrollTrigger aporta el
+   recorrido, que sale del mapa de fases, así el largo del scroll vive en un solo lugar. */
+.stage {
+  position: relative;
+  z-index: 6; /* sobre las capas del Hero (z<=5) en la zona de solape */
+  background: var(--sky-pastel);
+}
+
+/* La ventana: esto es lo que se pinea. El overflow recorta las entradas y salidas laterales
+   en el borde de pantalla, no sobre las palabras. */
+.inner {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Las dos secciones ocupan exactamente la misma caja. Sin fondo propio: el color lo pone el
+   stage, así el vire no deja costuras entre capas. */
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Marcadores de ancla: invisibles, solo aportan una posición de scroll al hash del nav */
+.anchorAbout,
+.anchorServices {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.anchorAbout {
+  top: 0;
+}
+
+/* El hash cae donde Services toma la pantalla. La caja del stage empieza donde engancha el
+   pin, no donde arranca el timeline, así que hay que descontar el anticipo:
+   (PHASE.title - PHASE.blockUp) * 100vh = (1.6 - 0.6) * 100 = 100vh.
+   Es el único valor del stage que no sale solo del mapa de fases. */
+.anchorServices {
+  top: 100vh;
+}

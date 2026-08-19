@@ -1,17 +1,9 @@
-"use client";
-
-import { useRef } from "react";
 import styles from "./About2.module.css";
-import { useAbout2Reveal } from "@/hooks/useAbout2Reveal";
 
-// Sección pineada: statement en dos renglones (izq/der) + bloque que sube al scrollear.
+// Presentacional: la animación la orquesta el Stage que lo contiene (ver about2Phase.ts).
 export default function About2() {
-  const rootRef = useRef<HTMLElement>(null);
-
-  useAbout2Reveal(rootRef, styles);
-
   return (
-    <section ref={rootRef} className={styles.about2} id="nosotros">
+    <section className={styles.about2}>
       <div className={styles.content}>
         <p className={styles.kicker}>Lanti - Estudio Digital</p>
 

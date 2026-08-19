@@ -1,11 +1,10 @@
+/* Capa del stage: ocupa la ventana pineada completa. Sin fondo ni recorte propios —el color
+   y el overflow los pone el stage, que es quien define el borde de pantalla. */
 .services {
   position: relative;
-  min-height: 100vh;
-  overflow: hidden;
+  height: 100%;
   display: grid;
   place-items: center;
-  /* Cielo crema pastel */
-  background: var(--sky-pastel);
 }
 
 /* Columna centrada: título arriba y la grilla de cards debajo */
@@ -21,8 +20,13 @@
   padding-inline: clamp(1.5rem, 6vw, 6rem);
 }
 
-/* Título de sección: Clash pesada en versalitas, mismo tinte que About2 */
+/* Título de sección: Clash pesada en versalitas, mismo tinte que About2. Es flex porque las
+   dos palabras se animan por separado, así que el espacio entre ellas ahora es el gap. */
 .title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 0.3em;
   font-family: var(--font-clash), sans-serif;
   font-weight: 600;
   text-transform: uppercase;
@@ -31,6 +35,14 @@
   line-height: 1.05;
   text-align: center;
   color: #2d2b54;
+}
+
+/* Cada palabra entra por un costado distinto: se animan como cajas independientes. El
+   sentido de entrada lo define servicesPhase.ts, acá solo viven como ganchos. */
+.wordLeft,
+.wordRight {
+  display: inline-block;
+  will-change: transform;
 }
 
 

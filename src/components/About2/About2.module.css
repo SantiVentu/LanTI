@@ -1,25 +1,13 @@
+/* Capa del stage: ocupa la ventana pineada completa. Sin fondo ni recorte propios —el color
+   y el overflow los pone el stage, que es quien define el borde de pantalla. */
 .about2 {
   position: relative;
-  z-index: 6; /* sobre las capas del Hero (z<=5) en la zona de solape */
-  min-height: 100vh;
-  /* Recorta el barrido lateral en el borde de la sección (= borde de pantalla), no sobre
-     la palabra: así no se ve ningún corte feo de dónde salen los renglones */
-  overflow-x: clip;
-}
-
-/* Fondo pastel sólido desde el borde superior: sin desvanecido arriba. Detrás siempre hay
-   pastel (Hero o body), así el contenido nunca queda sobre un fondo ajeno. */
-.about2::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--sky-pastel);
+  height: 100%;
 }
 
 /* Columna centrada: el bloque queda a media altura, sin aire muerto abajo */
 .content {
-  min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

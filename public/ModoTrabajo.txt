@@ -1,0 +1,34 @@
+MODO DE TRABAJO — LanTI
+=======================
+
+Textos de las cards de proceso que estaban en la sección "Nuestros servicios".
+Guardados al reemplazar esas cards por las cartas de poker.
+Origen: src/components/Cards/Cards.tsx
+
+
+1. DESCUBRIMIENTO
+   Ícono: /imagenes/iconos/lamparita.webp
+
+   Agendamos una reunión para conocer tu negocio, entender tus objetivos y
+   detectar oportunidades.
+
+
+2. DEFINIMOS
+   Ícono: /imagenes/iconos/lupita.webp
+
+   Analizamos los requerimientos, proponemos el alcance del proyecto y
+   presentamos una propuesta y plan de trabajo.
+
+
+3. CONSTRUIMOS
+   Ícono: /imagenes/iconos/martillito.webp
+
+   Desarrollamos e integramos la solución trabajando de forma colaborativa, con
+   avances visibles y revisiones durante todo el proceso.
+
+
+4. DISFRUTÁ LOS RESULTADOS
+   Ícono: /imagenes/iconos/estadisticas.webp
+
+   Realizamos ajustes finales y te acompañamos para asegurar resultados reales y
+   una creación exitosa.

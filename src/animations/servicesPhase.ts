@@ -11,11 +11,8 @@ const FAN_POSE = [
   { rotation: 8, y: 28 },
 ];
 
-// Cuánto se adelanta el título respecto de su fase. Solapa apenas el final de la salida de
-// About2 sin tocar PHASE.title, del que cuelga la duración de esa salida.
-const TITLE_LEAD = 0.15;
-// Cuánto dura el cruce del título. Junto con el adelanto y el desfase de la palabra derecha
-// llena la franja hasta PHASE.cards, así queda puesto justo cuando arrancan las cards.
+// Cuánto dura el cruce del título. Corre en paralelo al abanico y cierra un poco antes, así
+// las cards terminan de acomodarse con el título ya puesto.
 const CROSS_DURATION = 0.6;
 // La palabra derecha sale apenas después que la izquierda, como los renglones de About2
 const WORD_STAGGER = 0.05;
@@ -28,8 +25,8 @@ const FADE_DURATION = CROSS_DURATION;
 const pose = (index: number) => FAN_POSE[index % FAN_POSE.length];
 
 // Tramo de Services dentro del stage: el título entra por los costados —una palabra desde
-// cada lado, en espejo de la salida de About2— recién cuando los renglones de About2
-// terminaron de abrirse, y después suben las cards en abanico.
+// cada lado, en espejo de la salida de About2— y las cards suben en abanico AL MISMO TIEMPO,
+// las dos cosas ancladas a PHASE.reveal.
 export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
   const sel = gsap.utils.selector(root);
   const [wordLeft] = sel(`.${styles.wordLeft}`);
@@ -53,7 +50,7 @@ export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
     return groupCenter - (target.offsetLeft + target.offsetWidth / 2);
   };
 
-  const fanDuration = PHASE.end - PHASE.cards;
+  const fanDuration = PHASE.end - PHASE.reveal;
 
   // Estado inicial explícito para todo. Con stagger, GSAP solo renderiza los sub-tweens que
   // arrancan en el tiempo 0, así que las cards con delay se quedarían visibles en su celda.
@@ -67,21 +64,22 @@ export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
     yPercent: 120,
     rotation: 0,
     transformOrigin: "50% 100%", // pivote abajo: el giro se lee como abanico
+    // El CSS necesita saber cuánto está girada cada carta para poder enderezarla en el
+    // hover. Se publica como custom property en vez de duplicar FAN_POSE en Cards.module.css.
+    "--fan-rotation": (index: number) => `${pose(index).rotation}deg`,
   });
-
-  const titleStart = PHASE.title - TITLE_LEAD;
 
   tl
     // Cada palabra se funde con su propio deslizamiento, no las dos juntas
     .to(
       wordLeft,
       { autoAlpha: 1, duration: FADE_DURATION, ease: "none" },
-      titleStart
+      PHASE.reveal
     )
     .to(
       wordRight,
       { autoAlpha: 1, duration: FADE_DURATION, ease: "none" },
-      titleStart + WORD_STAGGER
+      PHASE.reveal + WORD_STAGGER
     )
     // Cruce: la izquierda arranca primero y la derecha la sigue. Los fromTo con función se
     // reevalúan en cada refresh, así el desplazamiento sigue al ancho de la ventana.
@@ -89,13 +87,13 @@ export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
       wordLeft,
       { x: fromLeft },
       { x: 0, duration: CROSS_DURATION, ease: "power2.out" },
-      titleStart
+      PHASE.reveal
     )
     .fromTo(
       wordRight,
       { x: offscreen },
       { x: 0, duration: CROSS_DURATION, ease: "power2.out" },
-      titleStart + WORD_STAGGER
+      PHASE.reveal + WORD_STAGGER
     )
     // Cards: aparecen ya en movimiento (no es un fundido largo)
     .to(
@@ -105,7 +103,7 @@ export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
         duration: 0.15,
         stagger: { each: 0.05, from: "center" },
       },
-      PHASE.cards
+      PHASE.reveal
     )
     // Suben desde abajo de pantalla mientras se separan hacia su pose de abanico. Subir y
     // abrirse son el MISMO movimiento.
@@ -125,6 +123,6 @@ export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
         duration: fanDuration,
         ease: "power1.out",
       },
-      PHASE.cards
+      PHASE.reveal
     );
 }

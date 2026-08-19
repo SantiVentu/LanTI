@@ -1,0 +1,31 @@
+/* Fondo del overlay: oscurece y difumina la escena para que la atención quede en la carta.
+   El blur va acá y no en la sección porque este elemento es fixed —blurear un contenedor que
+   scrollea repinta la GPU en cada frame. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80; /* sobre el nav (50) y el loader de la intro (60) */
+  display: grid;
+  place-items: center;
+  background: rgba(28, 24, 52, 0.55);
+  backdrop-filter: blur(14px) saturate(115%);
+  -webkit-backdrop-filter: blur(14px) saturate(115%);
+  cursor: zoom-out; /* todo el overlay cierra, la carta incluida */
+}
+
+/* El tamaño lo calcula CardLightbox y lo pasa por custom property: el FLIP necesita ese
+   número exacto para sacar la escala de partida, así que no puede vivir solo en el CSS. */
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+  will-change: transform;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* drop-shadow sigue el alfa del PNG; box-shadow dibujaría un rectángulo alrededor */
+  filter: drop-shadow(0 24px 60px rgba(20, 20, 40, 0.45));
+}

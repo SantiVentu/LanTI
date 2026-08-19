@@ -1,83 +1,66 @@
-/* --- Cards de pasos --- */
+/* --- Cartas del abanico --- */
 .cards {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(1.75rem, 2.4vw, 2.75rem);
+  gap: clamp(1rem, 2vw, 2rem);
+  /* Ancladas abajo: es el mismo borde del que cuelga el giro del abanico, así que si la
+     entrega viene con cartas de distinto alto, el arco se sigue leyendo parejo. */
+  align-items: end;
 }
 
+/* Caja exterior: el transform es de GSAP (abanico de entrada, ver servicesPhase.ts).
+   No poner acá transform ni transition, o pelean con la animación.
+   Es un <button> porque clickearla amplía la carta: así entra por teclado sin esfuerzo. */
 .card {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: clamp(1.7rem, 2vw, 2.2rem) clamp(1.5rem, 1.8vw, 2rem) clamp(1.9rem, 2.2vw, 2.4rem);
-  border-radius: 20px;
-
-  /* CRISTAL BASE (más liviano, como pills) */
-  background: linear-gradient(
-    135deg,
-    rgba(254, 250, 224, 0.151),
-    rgba(254, 250, 224, 0.05)
-  );
-
-  border: 1px solid rgba(254, 250, 224, 0.35);
-
-  backdrop-filter: blur(6px) saturate(125%);
-  -webkit-backdrop-filter: blur(6px) saturate(125%);
-
-  /* PROFUNDIDAD COMO PILL */
-  box-shadow:
-    inset 0 1px 1px rgba(255, 255, 255, 0.45),
-    inset 0 -2px 6px rgba(20, 20, 40, 0.12),
-    0 6px 18px rgba(20, 20, 40, 0.18);
-
   position: relative;
-  overflow: hidden;
-
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
   will-change: transform, opacity;
 }
 
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transition: transform 0.2s ease;
-  pointer-events: none;
-  background: linear-gradient(
-    115deg,
-    transparent 28%,
-    rgba(255, 255, 255, 0.288) 47%,
-    rgba(255, 255, 255, 0.12) 54%,
-    transparent 64%
-  );
-
-  pointer-events: none;
-}
-.cardIcon img {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
+/* La carta apuntada pasa al frente por si el abanico llega a solaparse */
+.card:hover {
+  z-index: 2;
 }
 
-.cardIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-2px);
+.card:focus-visible {
+  outline: 2px solid #e95825;
+  outline-offset: 8px;
+  border-radius: 10px;
 }
 
-.cardTitle {
-  font-family: var(--font-clash), sans-serif;
-  font-weight: 600;
-  font-size: 1.02rem;
-  color: #2a2340;
+/* Mientras está ampliada, la de la grilla desaparece: así se lee como que ESA carta viajó al
+   centro y no como que apareció una copia. Se oculta el interior y no el botón, para que el
+   hueco de la grilla no se mueva. */
+.card[data-focused] .cardInner {
+  visibility: hidden;
 }
 
-.cardDesc {
-  font-family: var(--font-satoshi), sans-serif;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: color-mix(in srgb, #482b5b 78%, transparent);
+/* Caja interior: acá vive el hover, separado para no pisar el transform de GSAP.
+   --fan-rotation la escribe servicesPhase.ts con la rotación de la pose, así el enderezado
+   es exacto sin duplicar FAN_POSE en el CSS. */
+.cardInner {
+  display: block;
+  transform-origin: 50% 100%;
+  transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  will-change: transform;
+}
+
+/* Se levanta y se endereza: el gesto de sacar una carta de la mano */
+.card:hover .cardInner {
+  transform: translateY(-1.5rem) rotate(calc(-1 * var(--fan-rotation, 0deg)));
+}
+
+.cardImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* drop-shadow y no box-shadow: sigue el alfa del PNG en vez de dibujar un rectángulo
+     alrededor de la caja */
+  filter: drop-shadow(0 10px 22px rgba(45, 43, 84, 0.22));
 }
 
 /* --- Responsive --- */

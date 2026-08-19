@@ -20,11 +20,11 @@ export function addSkyPhase(
     proxy,
     {
       progress: 1,
-      duration: PHASE.end - PHASE.cards,
+      duration: PHASE.end - PHASE.aboutOut,
       ease: "none",
       onUpdate: () =>
         root.style.setProperty("--sky-pastel", mixColor(proxy.progress)),
     },
-    PHASE.cards
+    PHASE.aboutOut
   );
 }

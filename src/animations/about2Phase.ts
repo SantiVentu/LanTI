@@ -3,8 +3,8 @@ import styles from "@/components/About2/About2.module.css";
 import { PHASE } from "./stagePhases";
 
 // Tramo de About2 dentro del stage: los renglones entran por los costados, sube el bloque de
-// apoyo y después todo se retira por donde vino. La salida ocupa la franja handoff → title:
-// termina exactamente cuando el título de Services empieza a entrar.
+// apoyo y después todo se retira por donde vino. La salida ocupa la franja handoff → aboutOut,
+// que pisa el revelado de Services: se van y entran a la vez.
 // Cuánto se retrasan los renglones respecto del arranque del timeline. No se estira la fase:
 // siguen quedando puestos justo cuando engancha el pin, solo barren un poco más rápido.
 const LINES_DELAY = 0.1;
@@ -21,8 +21,9 @@ export function addAbout2Phase(tl: gsap.core.Timeline, root: HTMLElement) {
   const linesStart = PHASE.linesIn + LINES_DELAY;
   const linesDuration = PHASE.blockUp - linesStart;
   const blockDuration = PHASE.handoff - PHASE.blockUp;
-  // La salida cierra justo donde entra el título de Services: uno releva al otro
-  const exitDuration = PHASE.title - PHASE.handoff;
+  // La salida se solapa con el revelado de Services: arranca antes y cierra después de que
+  // el título y las cards ya empezaron a entrar.
+  const exitDuration = PHASE.aboutOut - PHASE.handoff;
   // El kicker aguanta mientras los renglones ya se están yendo y recién después se apaga,
   // así no se va lo primero que se leyó. Es fracción de la salida, no un valor suelto.
   const kickerHold = exitDuration * 0.65;

@@ -36,8 +36,8 @@
 
 /* El hash cae donde Services toma la pantalla. La caja del stage empieza donde engancha el
    pin, no donde arranca el timeline, así que hay que descontar el anticipo:
-   (PHASE.title - PHASE.blockUp) * 100vh = (1.6 - 0.6) * 100 = 100vh.
+   (PHASE.reveal - PHASE.blockUp) * 100vh = (1.45 - 0.6) * 100 = 85vh.
    Es el único valor del stage que no sale solo del mapa de fases. */
 .anchorServices {
-  top: 100vh;
+  top: 85vh;
 }

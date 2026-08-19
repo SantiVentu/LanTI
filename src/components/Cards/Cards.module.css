@@ -1,9 +1,12 @@
 /* --- Cartas del abanico --- */
 .cards {
+  /* Como variable porque el reacomodo necesita el paso de la grilla (ancho de carta + gap) */
+  --cards-gap: clamp(1rem, 2vw, 2rem);
+
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(1rem, 2vw, 2rem);
+  gap: var(--cards-gap);
   /* Ancladas abajo: es el mismo borde del que cuelga el giro del abanico, así que si la
      entrega viene con cartas de distinto alto, el arco se sigue leyendo parejo. */
   align-items: end;
@@ -34,18 +37,79 @@
 
 /* Mientras está ampliada, la de la grilla desaparece: así se lee como que ESA carta viajó al
    centro y no como que apareció una copia. Se oculta el interior y no el botón, para que el
-   hueco de la grilla no se mueva. */
+   hueco de la grilla no se mueva.
+   Al abrir se va de una —la carta "viajó"—; al volver reaparece con un fundido, sincronizado
+   con el retraso del reacomodo para que se lea como que ella empuja a las otras. */
 .card[data-focused] .cardInner {
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0s;
 }
 
-/* Caja interior: acá vive el hover, separado para no pisar el transform de GSAP.
+/* Capa de reacomodo: cuando una carta se revela, las tres que quedan cierran filas y se
+   reparten un arco de tres, centrado. Necesita capa propia porque .card ya lleva el transform
+   de GSAP y .cardInner el del hover.
+
+   El orden de las funciones no es decorativo. Primero se DESANDA la rotación del abanico para
+   volver a los ejes de pantalla; si no, el desplazamiento seguiría el eje inclinado de la
+   carta y las de las puntas se irían en diagonal. Recién después se corre y se aplica el arco
+   nuevo. --fan-rotation y --fan-y las publica servicesPhase.ts con la pose de cada carta. */
+.cardSlot {
+  display: block;
+  transform-origin: 50% 100%;
+  transform: rotate(var(--slot-undo, 0deg))
+    translate(var(--slot-x, 0px), var(--slot-y, 0px))
+    rotate(var(--slot-arc, 0deg));
+  /* Esta transición gobierna la VUELTA, porque es el estado al que se regresa. Espera a que
+     se despeje el overlay (su fade dura 0.18s) y usa una curva menos cargada al arranque: sin
+     el retraso, el grueso del recorrido pasa detrás del fondo borroso y el regreso no se ve. */
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.16s;
+}
+
+/* La ida, en cambio, arranca ya: es parte del mismo gesto que el zoom de la carta */
+.card[data-slot] .cardSlot {
+  transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.card[data-slot] {
+  --slot-undo: calc(-1 * var(--fan-rotation, 0deg));
+  --slot-y: calc(var(--slot-lift) - var(--fan-y, 0px));
+}
+
+/* Medio paso de grilla hacia el hueco. Siempre medio paso, salga la carta que salga: es lo
+   que hace falta para que las tres restantes queden centradas. */
+.card[data-side="left"] {
+  --slot-x: calc((100% + var(--cards-gap)) / 2);
+}
+
+.card[data-side="right"] {
+  --slot-x: calc((100% + var(--cards-gap)) / -2);
+}
+
+/* Arco de tres: mismo gesto que FAN_POSE en servicesPhase.ts —extremos abiertos y caídos,
+   centro derecho— pero repartido entre tres posiciones en vez de cuatro. */
+.card[data-slot="0"] {
+  --slot-arc: -6deg;
+  --slot-lift: 20px;
+}
+
+.card[data-slot="1"] {
+  --slot-arc: 0deg;
+  --slot-lift: 0px;
+}
+
+.card[data-slot="2"] {
+  --slot-arc: 6deg;
+  --slot-lift: 20px;
+}
+
+/* Caja interior: acá vive el hover, separado para no pisar los otros dos transforms.
    --fan-rotation la escribe servicesPhase.ts con la rotación de la pose, así el enderezado
    es exacto sin duplicar FAN_POSE en el CSS. */
 .cardInner {
   display: block;
   transform-origin: 50% 100%;
-  transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.35s ease 0.16s;
   will-change: transform;
 }
 

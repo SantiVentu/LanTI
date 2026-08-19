@@ -22,11 +22,17 @@ const WORD_STAGGER = 0.05;
 // estaría opaca a mitad de camino y el efecto se perdería.
 const FADE_DURATION = CROSS_DURATION;
 
+// Qué tan apiladas nacen las cards: 1 las superpone perfectamente en el centro del grupo, 0
+// las hace subir cada una en su columna. Apilado total no sirve —con los cuatro dorsos
+// idénticos se lee como UNA carta, y las de los costados parecen llegar tarde al separarse—,
+// así que se deja un resto para que se distingan los bordes desde el primer frame.
+const STACK_RATIO = 0.85;
+
 const pose = (index: number) => FAN_POSE[index % FAN_POSE.length];
 
 // Tramo de Services dentro del stage: el título entra por los costados —una palabra desde
-// cada lado, en espejo de la salida de About2— y las cards suben en abanico AL MISMO TIEMPO,
-// las dos cosas ancladas a PHASE.reveal.
+// cada lado, en espejo de la salida de About2— y las cards suben en abanico apenas después,
+// ya con el título en camino.
 export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
   const sel = gsap.utils.selector(root);
   const [wordLeft] = sel(`.${styles.wordLeft}`);
@@ -39,7 +45,7 @@ export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
   const offscreen = () => window.innerWidth * 0.75;
   const fromLeft = () => -offscreen();
 
-  // Desplazamiento que apila cada card en el centro del grupo. offsetLeft es medida de
+  // Desplazamiento que acerca cada card al centro del grupo al nacer. offsetLeft es medida de
   // layout —los transforms no la afectan—, así que se recalcula bien en cada resize.
   const stackOffset = (target: HTMLElement) => {
     const first = cards[0];
@@ -47,10 +53,10 @@ export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
     const groupCenter =
       (first.offsetLeft + last.offsetLeft + last.offsetWidth) / 2;
 
-    return groupCenter - (target.offsetLeft + target.offsetWidth / 2);
+    return (groupCenter - (target.offsetLeft + target.offsetWidth / 2)) * STACK_RATIO;
   };
 
-  const fanDuration = PHASE.end - PHASE.reveal;
+  const fanDuration = PHASE.end - PHASE.cards;
 
   // Estado inicial explícito para todo. Con stagger, GSAP solo renderiza los sub-tweens que
   // arrancan en el tiempo 0, así que las cards con delay se quedarían visibles en su celda.
@@ -64,9 +70,11 @@ export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
     yPercent: 120,
     rotation: 0,
     transformOrigin: "50% 100%", // pivote abajo: el giro se lee como abanico
-    // El CSS necesita saber cuánto está girada cada carta para poder enderezarla en el
-    // hover. Se publica como custom property en vez de duplicar FAN_POSE en Cards.module.css.
+    // El CSS necesita conocer la pose de cada carta para poder desandarla: el hover la
+    // endereza y el reacomodo la reemplaza por un arco de tres. Se publica como custom
+    // property en vez de duplicar FAN_POSE en Cards.module.css.
     "--fan-rotation": (index: number) => `${pose(index).rotation}deg`,
+    "--fan-y": (index: number) => `${pose(index).y}px`,
   });
 
   tl
@@ -95,18 +103,11 @@ export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
       { x: 0, duration: CROSS_DURATION, ease: "power2.out" },
       PHASE.reveal + WORD_STAGGER
     )
-    // Cards: aparecen ya en movimiento (no es un fundido largo)
-    .to(
-      cards,
-      {
-        autoAlpha: 1,
-        duration: 0.15,
-        stagger: { each: 0.05, from: "center" },
-      },
-      PHASE.reveal
-    )
-    // Suben desde abajo de pantalla mientras se separan hacia su pose de abanico. Subir y
-    // abrirse son el MISMO movimiento.
+    // Cards: las cuatro a la vez, sin stagger. Escalonarlas hacía que las del centro se
+    // encendieran primero y se leía como si las de los costados llegaran tarde.
+    .to(cards, { autoAlpha: 1, duration: 0.15 }, PHASE.cards)
+    // Suben desde abajo casi apiladas y se abren hacia sus columnas girando hacia la pose de
+    // abanico. Subir y abrirse son el MISMO movimiento.
     .fromTo(
       cards,
       {
@@ -123,6 +124,6 @@ export function addServicesPhase(tl: gsap.core.Timeline, root: HTMLElement) {
         duration: fanDuration,
         ease: "power1.out",
       },
-      PHASE.reveal
+      PHASE.cards
     );
 }

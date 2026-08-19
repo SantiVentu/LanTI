@@ -6,8 +6,10 @@
   /* Solape de About2 sobre la zona ya disuelta del Hero: el saludo nace antes */
   --about-overlap: 75vh;
 
-  /* Pastel unificado y opaco: fondo compartido de Hero2 y About2 (mismo color en ambos) */
-  --sky-pastel: #ebc284;
+  /* Cielo compartido de toda la página. Este valor es el del mediodía —lo que se ve arriba
+     de todo— y sirve de base hasta que useSkyRamp toma el control; de ahí en más lo reescribe
+     en cada scroll siguiendo la rampa de día a noche (ver skyRamp.ts). */
+  --sky-pastel: #f8e2ad;
 
   /* Color de fondo por sección — para distinguirlas en la página */
   --section-nav: #d8e0d9;

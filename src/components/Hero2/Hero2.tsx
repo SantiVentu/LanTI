@@ -17,7 +17,7 @@ export default function Hero2() {
 
   return (
     
-    <section ref={rootRef} className={styles.hero2} id="hero2">
+    <section ref={rootRef} className={styles.hero2} id="hero2" data-sky-section="hero">
       
       {/* Fade superior desde el crema para empalmar sin costura con About */}
       <div className={styles.topFade} aria-hidden="true" />

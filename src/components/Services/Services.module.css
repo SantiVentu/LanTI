@@ -33,7 +33,9 @@
   font-weight: 600;
   font-size: clamp(2rem, 5.5vw, 4.2rem);
   line-height: 1.05;
-  color: #2d2b54;
+  /* Crema de marca, el mismo del nav. Contra el vino del acento arma un par claro/profundo
+     que se lee de un vistazo; "Nuestros" acompaña y la mirada cae en la palabra clave. */
+  color: #e3d396;
 }
 
 /* Cada palabra entra por un costado distinto: se animan como cajas independientes. El
@@ -44,10 +46,13 @@
   will-change: transform;
 }
 
-/* Palabra clave en el naranja de marca y en mayúsculas, igual que "diseño" en About2 */
+/* Palabra clave en versalitas, mismo recurso que "diseño" en About2. El vino es la familia del
+   crepúsculo de la rampa de cielo (#7a3450), un tono más profundo: el acento anticipa el color
+   que el fondo va a tomar más abajo. El naranja de marca no sirve acá —cuando el título entra,
+   el cielo ya está en dorado #eabb7d y el naranja da 2:1, o sea naranja sobre naranja. */
 .wordRight {
   text-transform: uppercase;
-  color: #e95825;
+  color: #6d2438;
 }
 
 

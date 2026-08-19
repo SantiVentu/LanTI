@@ -42,34 +42,56 @@ export default function Cards() {
     triggerRef.current?.focus();
   };
 
+  const focusedIndex = focused
+    ? POKER_CARDS.findIndex((card) => card.id === focused.card.id)
+    : -1;
+
   return (
     <>
       <div className={styles.cards}>
-        {POKER_CARDS.map((card) => (
-          <button
-            key={card.id}
-            type="button"
-            className={styles.card}
-            data-card
-            data-focused={focused?.card.id === card.id ? "" : undefined}
-            aria-label={`Revelar ${card.alt}`}
-            onClick={(event) => reveal(card, event)}
-          >
-            {/* Wrapper interno: se queda con el hover porque el transform del exterior es de GSAP */}
-            <span className={styles.cardInner}>
-              <Image
-                src={CARD_BACK.src}
-                // Decorativa: el botón ya se anuncia con su aria-label, y las cuatro
-                // muestran el mismo dorso
-                alt=""
-                width={CARD_BACK.width}
-                height={CARD_BACK.height}
-                className={styles.cardImage}
-                sizes="(max-width: 520px) 78vw, (max-width: 900px) 40vw, 22vw"
-              />
-            </span>
-          </button>
-        ))}
+        {POKER_CARDS.map((card, index) => {
+          const isFocused = index === focusedIndex;
+          // Con una carta afuera, las tres restantes cierran filas. Las que estaban a su
+          // izquierda se corren medio paso a la derecha y las de la derecha medio paso a la
+          // izquierda —siempre medio paso, salga la carta que salga—, y el arco se reparte
+          // entre las tres posiciones que quedan. El CSS hace las cuentas.
+          const regrouping = focusedIndex >= 0 && !isFocused;
+
+          return (
+            <button
+              key={card.id}
+              type="button"
+              className={styles.card}
+              data-card
+              data-focused={isFocused ? "" : undefined}
+              data-side={
+                regrouping ? (index < focusedIndex ? "left" : "right") : undefined
+              }
+              data-slot={
+                regrouping ? (index < focusedIndex ? index : index - 1) : undefined
+              }
+              aria-label={`Revelar ${card.alt}`}
+              onClick={(event) => reveal(card, event)}
+            >
+              {/* Una capa por transform: acá el reacomodo, adentro el hover, y el del botón
+                  es de GSAP. Apilarlos en el mismo elemento los haría pisarse. */}
+              <span className={styles.cardSlot}>
+                <span className={styles.cardInner}>
+                  <Image
+                    src={CARD_BACK.src}
+                    // Decorativa: el botón ya se anuncia con su aria-label, y las cuatro
+                    // muestran el mismo dorso
+                    alt=""
+                    width={CARD_BACK.width}
+                    height={CARD_BACK.height}
+                    className={styles.cardImage}
+                    sizes="(max-width: 520px) 78vw, (max-width: 900px) 40vw, 22vw"
+                  />
+                </span>
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       <CardLightbox

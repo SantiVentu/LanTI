@@ -6,21 +6,17 @@ import About2 from "@/components/About2/About2";
 import Services from "@/components/Services/Services";
 import { useStageSequence } from "@/hooks/useStageSequence";
 
-// Ámbar del resto del sitio → rosé durazno propio de Services
-const SKY_FROM = "#ebc284";
-const SKY_TO = "#f3d4c4";
-
 // About2 y Services apiladas en la misma caja de pantalla. El scroll no navega de una a la
 // otra: recorre un timeline que las cruza, así una nace detrás de la otra en vez de subir
-// desde abajo.
+// desde abajo. El color de fondo no se maneja acá: lo lleva la rampa global (ver Sky).
 export default function Stage() {
   const stageRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
-  useStageSequence(stageRef, innerRef, SKY_FROM, SKY_TO);
+  useStageSequence(stageRef, innerRef);
 
   return (
-    <div ref={stageRef} className={styles.stage}>
+    <div ref={stageRef} className={styles.stage} data-sky-section="stage">
       {/* Anclas del nav: las dos secciones comparten la misma caja del DOM, así que el hash
           tiene que caer en la posición de SCROLL de cada fase. Estos marcadores viven en el
           alto que genera el pin, no en la ventana pineada. */}

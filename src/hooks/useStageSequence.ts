@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PHASE } from "@/animations/stagePhases";
 import { addAbout2Phase } from "@/animations/about2Phase";
 import { addServicesPhase } from "@/animations/servicesPhase";
-import { addSkyPhase } from "@/animations/skyPhase";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,9 +25,7 @@ gsap.registerPlugin(ScrollTrigger);
 // El pin usa pinSpacing por defecto: el spacer aporta el recorrido posterior al enganche.
 export function useStageSequence(
   stageRef: RefObject<HTMLElement | null>,
-  innerRef: RefObject<HTMLElement | null>,
-  skyFrom: string,
-  skyTo: string
+  innerRef: RefObject<HTMLElement | null>
 ) {
   useEffect(() => {
     const stage = stageRef.current;
@@ -64,13 +61,8 @@ export function useStageSequence(
 
       addAbout2Phase(tl, stage);
       addServicesPhase(tl, stage);
-      addSkyPhase(tl, skyFrom, skyTo);
     }, stage);
 
-    return () => {
-      ctx.revert();
-      // El vire escribe la var en documentElement, fuera del alcance del context
-      document.documentElement.style.removeProperty("--sky-pastel");
-    };
-  }, [stageRef, innerRef, skyFrom, skyTo]);
+    return () => ctx.revert();
+  }, [stageRef, innerRef]);
 }

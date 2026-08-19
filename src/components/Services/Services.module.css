@@ -20,29 +20,34 @@
   padding-inline: clamp(1.5rem, 6vw, 6rem);
 }
 
-/* Título de sección: Clash pesada en versalitas, mismo tinte que About2. Es flex porque las
-   dos palabras se animan por separado, así que el espacio entre ellas ahora es el gap. */
+/* Título de sección con el mismo lenguaje que Hero2 y About2: Clash 600, caja de oración e
+   indigo de marca. La jerarquía no la hace el peso sino el acento de color en la palabra
+   clave —el mismo recurso que .accent en el statement de About2—, así la sección no inventa
+   un tratamiento propio. Columna porque cada palabra ocupa su renglón y entra por un costado
+   distinto. */
 .title {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0 0.3em;
+  flex-direction: column;
+  align-items: center;
   font-family: var(--font-clash), sans-serif;
   font-weight: 600;
-  text-transform: uppercase;
-  font-size: clamp(1.8rem, 5vw, 3.6rem);
-  letter-spacing: 0.02em;
+  font-size: clamp(2rem, 5.5vw, 4.2rem);
   line-height: 1.05;
-  text-align: center;
   color: #2d2b54;
 }
 
 /* Cada palabra entra por un costado distinto: se animan como cajas independientes. El
-   sentido de entrada lo define servicesPhase.ts, acá solo viven como ganchos. */
+   sentido de entrada lo define servicesPhase.ts. */
 .wordLeft,
 .wordRight {
   display: inline-block;
   will-change: transform;
+}
+
+/* Palabra clave en el naranja de marca y en mayúsculas, igual que "diseño" en About2 */
+.wordRight {
+  text-transform: uppercase;
+  color: #e95825;
 }
 
 
